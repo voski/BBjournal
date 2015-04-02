@@ -2,12 +2,14 @@ BBJournal.Views.PostsShow = Backbone.View.extend({
   template: JST['posts/show'],
 
   events: {
-    "click .link-to-main": 'goToMain',
-    "click .link-to-edit": 'goToEdit'
+    "dblclick .title, .body": 'editTarget',
+    "blur input": 'submitTarget',
+
   },
 
   initialize: function (options) {
-    this.listenTo(this.model, "sync", this.render)
+    this.listenTo(this.model, "sync", this.render),
+    this.oldTarget;
   },
 
   render: function () {
@@ -24,5 +26,41 @@ BBJournal.Views.PostsShow = Backbone.View.extend({
   goToEdit: function () {
     Backbone.history.navigate('/posts/' + this.model.id + '/edit', {trigger: true})
   },
+
+  editTarget: function (event) {
+    var $target = this.oldTarget = $(event.currentTarget);
+    var attr = $target.attr('class');
+    var val = this.model.escape(attr)
+
+    var $input = $('<input type=text name=' + attr + '>');
+    $input.val(val);
+    $target.replaceWith($input);
+  },
+
+  submitTarget: function (event) {
+    var $target = $(event.currentTarget);
+    var key = $target.attr('name');
+    var val = $target.val();
+    var params = {};
+    params[key] = val;
+    this.model.set(params)
+
+    this.model.save({}, {
+      success: function () {
+        this.collection.add(this.model);
+        this.oldTarget.val(val);
+        $target.replaceWith(this.oldTarget);
+      }.bind(this),
+
+      error: function (model, response, request) {
+        this.errors = _(response.responseJSON);
+        this.errors.each(function(error) {
+          this.$el.prepend(error)
+        }, this)
+      }.bind(this),
+    })
+
+  },
+
 
 });

@@ -30,3 +30,13 @@ body{
 .index-item-content {
   border: 1px solid blue;
 }
+
+#content {
+  width: 40%;
+  float: left;
+}
+
+#sidebar {
+  width: 40%;
+  float: left;
+}

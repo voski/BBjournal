@@ -1,7 +1,7 @@
 BBJournal.Views.PostsIndex = Backbone.View.extend({
   template: JST['posts/index'],
   initialize: function (options) {
-    this.listenTo(this.collection, "sync remove", this.render)
+    this.listenTo(this.collection, "sync remove add", this.render)
   },
 
   events: {
@@ -20,7 +20,6 @@ BBJournal.Views.PostsIndex = Backbone.View.extend({
       this.$('ol').append(content.render().$el)
     }, this)
 
-    this.$el.prepend($("<p class='link-to-new'>make a new post</p>"))
     this.$el.addClass("index-content")
     return this;
   },

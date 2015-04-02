@@ -19,11 +19,13 @@ BBJournal.Views.PostsForm = Backbone.View.extend({
 
   submit: function () {
     this.$form = this.$el.find('form');
+
     var post_params = this.$form.serializeJSON().post;
     this.model.set(post_params);
-    this.model.save(post_params, {
+    this.model.save( {}, {
       success: function () {
-        Backbone.history.navigate('' , {trigger: true})
+        this.collection.add(this.model);
+        Backbone.history.navigate('/posts/' + this.model.id , {trigger: true})
       }.bind(this),
 
       error: function (model, response, request) {
