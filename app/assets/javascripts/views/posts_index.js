@@ -9,12 +9,19 @@ BBJournal.Views.PostsIndex = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.empty();
+
+    var content = this.template();
+    this.$el.html(content);
+
     this.collection.each(function(post) {
-      var content = new BBJournal.Views.PostsIndexItem({ model: post })
-      this.$el.append(content.render().$el)
+      var content = new BBJournal.Views.PostsIndexItem({
+        model: post
+      })
+      this.$('ol').append(content.render().$el)
     }, this)
+
     this.$el.prepend($("<p class='link-to-new'>make a new post</p>"))
+    this.$el.addClass("index-content")
     return this;
   },
 

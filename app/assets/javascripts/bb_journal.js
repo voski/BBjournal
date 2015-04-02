@@ -4,7 +4,9 @@ window.BBJournal = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new BBJournal.Routers.PostsRouter({$rootEl: $('#main')});
+    new BBJournal.Routers.PostsRouter({$rootEl: $('#content')});
+    new BBJournal.Routers.PostsRouter({$rootEl: $('#sidebar')});
+
     Backbone.history.start();
   }
 };

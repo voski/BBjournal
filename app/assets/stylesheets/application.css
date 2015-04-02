@@ -17,7 +17,16 @@
 body{
   background-color: #eee;
 }
+
 * {
   font-family: 'Chewy', cursive;
   font-size: 1.08em;
+}
+
+.index-content {
+  border: 1px solid red;
+}
+
+.index-item-content {
+  border: 1px solid blue;
 }
