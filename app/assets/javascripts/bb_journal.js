@@ -11,4 +11,7 @@ window.BBJournal = {
 
 $(document).ready(function(){
   BBJournal.initialize();
+  $('.header').click(function() {
+    document.location.hash = ''
+  })
 });

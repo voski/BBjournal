@@ -6,9 +6,9 @@ BBJournal.Routers.PostsRouter = Backbone.Router.extend({
 
   routes: {
     '': 'index',
+    'posts/new' : 'new',
     'posts/:id': 'show',
     'posts/:id/edit': 'edit',
-    'posts/new': 'new',
   },
 
   index: function () {
@@ -34,8 +34,9 @@ BBJournal.Routers.PostsRouter = Backbone.Router.extend({
 
   new: function () {
     var post = new BBJournal.Models.Post();
-    var view = new BBJournal.Views.PostsForm({ model: post, collection: this.posts })
-
+    var view = new BBJournal.Views.PostsForm({ model: post, collection: this.posts });
+    view.render();
+    this.$rootEl.html(view.$el);
   },
 
 });
