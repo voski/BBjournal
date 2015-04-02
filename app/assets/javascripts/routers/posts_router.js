@@ -7,21 +7,35 @@ BBJournal.Routers.PostsRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
     'posts/:id': 'show',
+    'posts/:id/edit': 'edit',
+    'posts/new': 'new',
   },
 
   index: function () {
     this.posts.fetch();
-    var view = new BBJournal.Views.PostsIndex({collection: this.posts})
+    var view = new BBJournal.Views.PostsIndex({ collection: this.posts })
     view.render();
     this.$rootEl.html(view.$el)
   },
 
   show: function (id) {
     var post = this.posts.getOrFetch(id);
-    var view = new BBJournal.Views.PostsShow({model: post})
+    var view = new BBJournal.Views.PostsShow({ model: post })
     view.render();
     this.$rootEl.html(view.$el)
   },
 
+  edit: function (id) {
+    var post = this.posts.getOrFetch(id);
+    var view = new BBJournal.Views.PostsForm({ model: post })
+    view.render();
+    this.$rootEl.html(view.$el);
+  },
+
+  new: function () {
+    var post = new BBJournal.Models.Post();
+    var view = new BBJournal.Views.PostsForm({ model: post, collection: this.posts })
+
+  },
 
 });

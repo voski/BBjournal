@@ -4,7 +4,7 @@ class Api::PostsController < ApplicationController
     if @post.save
       render 'show'
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: @comment.errors, status: 422
     end
   end
 
@@ -29,7 +29,7 @@ class Api::PostsController < ApplicationController
     if @post.update(post_params)
       render 'show'
     else
-      render json: @post.errors, status: :unprocesable_entity
+      render json: @post.errors.full_messages, status: 422
     end
   end
 

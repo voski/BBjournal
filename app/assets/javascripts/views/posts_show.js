@@ -3,6 +3,7 @@ BBJournal.Views.PostsShow = Backbone.View.extend({
 
   events: {
     "click .link-to-main": 'goToMain',
+    "click .link-to-edit": 'goToEdit'
   },
 
   initialize: function (options) {
@@ -18,5 +19,10 @@ BBJournal.Views.PostsShow = Backbone.View.extend({
 
   goToMain: function () {
     Backbone.history.navigate('', {trigger: true})
-  }
+  },
+
+  goToEdit: function () {
+    Backbone.history.navigate('/posts/' + this.model.id + '/edit', {trigger: true})
+  },
+
 });
